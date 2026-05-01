@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>فيديو يوتيوب بدون موسيقى</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 30px; }
+        input { width: 60%; padding: 10px; font-size: 18px; }
+        button { padding: 10px 20px; font-size: 18px; margin-top: 10px; }
+        video { margin-top: 20px; width: 80%; }
+    </style>
+</head>
+<body>
+
+<h2>تشغيل فيديو يوتيوب بدون موسيقى</h2>
+
+<input id="videoUrl" placeholder="ضع رابط اليوتيوب هنا">
+<br>
+<button onclick="processVideo()">إزالة الموسيقى</button>
+
+<h3 id="status"></h3>
+<video id="videoPlayer" controls></video>
+
+<script>
+async function processVideo() {
+    const url = document.getElementById("videoUrl").value;
+    document.getElementById("status").innerText = "جاري معالجة الفيديو...";
+
+    const response = await fetch("/process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+    });
+
+    const data = await response.json();
+    document.getElementById("status").innerText = "تمت إزالة الموسيقى بالكامل";
+    document.getElementById("videoPlayer").src = data.video;
+}
+</script>
+
+</body>
+</html>
