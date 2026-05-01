@@ -4,7 +4,16 @@ import subprocess
 import os
 import uuid
 
+app = Flask(__name__) from flask import Flask, request, jsonify, send_from_directory
+import subprocess
+import os
+
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return send_from_directory('static', 'index.html')
+
 
 @app.post("/process")
 def process():
