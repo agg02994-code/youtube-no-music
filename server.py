@@ -1,15 +1,12 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 import yt_dlp
 import subprocess
 import os
 import uuid
 
-app = Flask(__name__) from flask import Flask, request, jsonify, send_from_directory
-import subprocess
-import os
-
 app = Flask(__name__)
 
+# الصفحة الرئيسية
 @app.route('/')
 def home():
     return send_from_directory('static', 'index.html')
@@ -50,8 +47,10 @@ def process():
 
     return jsonify({"video": final_video})
 
+
 @app.get("/<path:path>")
 def serve_file(path):
     return send_file(path)
+
 
 app.run(host="0.0.0.0", port=5000)
